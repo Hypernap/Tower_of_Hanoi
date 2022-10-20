@@ -19,11 +19,14 @@
   </div>
   <div class='table'></div>
   <div class="input__container">
-    <input id="hanoi_n" type="text" placeholder="Enter number of disks" class="input__field">
+    <input id="hanoi_n" type="number" placeholder="Enter number of disks" class="input__field">
     <button id="inp_btn" class="submit__btn">Start</button>
+    <button id="rst_btn" class="submit__btn">Reset</button>
   </div>
-  <div  class="disk__container">
-    </div>
+  <input type="range" class="range__slider" id="range" min=0 max=90 value=80>
+  <label>Speed</label>
+  <div class="disk__container">
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
     integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
