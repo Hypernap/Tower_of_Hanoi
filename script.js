@@ -7,9 +7,9 @@ n = 0
 bodyT = document.getElementsByTagName('body')[0];
 width = bodyT.clientWidth;
 height = bodyT.clientHeight;
-diskColors = ["#944941", "#444941", "#244941"]
+diskColors = ["#ef4444", "#fbbf24", "#06b6d4", "#d946ef", "#a5b4fc"]
 dstBtwTower = (width * 0.2)
-window.addEventListener('resize', ()=>{location.reload();console.log("hello")});
+window.addEventListener('resize', () => { reset(); location.reload(); console.log("hello") });
 let animation, tower;
 function towerOfHanoi(n, from_rod, to_rod, aux_rod) {
   if (n == 0) {
@@ -69,7 +69,7 @@ function intialize(n) {
   }
   towerOfHanoi(n, "A", "C", "B");
   animation.add({
-    complete:()=>{document.getElementById("range").disabled = false;}
+    complete: () => { document.getElementById("range").disabled = false; }
   })
   animation.play();
   // document.getElementById("range").disabled=false;
@@ -78,8 +78,8 @@ function reset() {
   doc = document.getElementsByClassName("disk__container")[0];
   doc.innerHTML = "";
   towers = { "A": [], "B": [], "C": [] }
-  timeDelay = (100-document.getElementById("range").value)*10;
-  document.getElementById("range").disabled=false;
+  timeDelay = (100 - document.getElementById("range").value) * 10;
+  document.getElementById("range").disabled = false;
   console.log(timeDelay);
   animation = anime.timeline({
     duration: timeDelay,
@@ -89,9 +89,10 @@ function reset() {
 }
 function createDisks() {
   n = document.getElementById("hanoi_n").value;
-  if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) { 
-    alert ("Enter number between 2 and 8")
-    return; }
+  if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) {
+    alert("Enter number between 2 and 8")
+    return;
+  }
   dec = (dstBtwTower - towerWidth) / n
   doc = document.getElementsByClassName("disk__container")[0];
   reset();
