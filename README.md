@@ -2,7 +2,7 @@
 Tower of hanoi
 
 # Hosted Site
-https://pypranav.github.io/Tower_of_Hanoi/
+https://Hypernap.github.io/Tower_of_Hanoi/
 
 # Images
 
