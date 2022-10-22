@@ -2,7 +2,10 @@
 Tower of hanoi
 
 # Hosted Site
-https://Hypernap.github.io/Tower_of_Hanoi/
+[Tower Of Hanoi](https://pypranav.github.io/Tower_of_Hanoi/)
+
+# JavaScript Library
+[AnimeJs](https://animejs.com/)
 
 # Images
 
