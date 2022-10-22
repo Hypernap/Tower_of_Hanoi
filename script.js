@@ -1,23 +1,17 @@
-diskWidth = 120
+let animation, towers, width, height, dstBtwTower;
 diskHeight = 50
 towerWidth = 45
 titleHeight = 163
 timeDelay = 600
 n = 0
-bodyT = document.getElementsByTagName('body')[0];
-width = bodyT.clientWidth;
-height = bodyT.clientHeight;
-diskColors = ["#944941", "#444941", "#244941"]
-dstBtwTower = (width * 0.2)
-window.addEventListener('resize', ()=>{location.reload();console.log("hello")});
-let animation, tower;
+diskColors = ["#ef4444", "#fbbf24", "#06b6d4", "#d946ef", "#a5b4fc"]
+window.addEventListener('resize', reset);
 function towerOfHanoi(n, from_rod, to_rod, aux_rod) {
   if (n == 0) {
     return;
   }
   towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);
   move(from_rod, to_rod)
-  // console.log(n);
   towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);
 }
 
@@ -26,14 +20,12 @@ function move(src, dst) {
   diskToMove = towers[src].pop()
   lenSrc = towers[src].length
   dec = (dstBtwTower - towerWidth) / n
-  // console.log(steps, diskToMove, lenSrc, dec)
   towers[dst].push(diskToMove)
   lenDst = towers[dst].length
   if (src == "A") {
     transX = (steps + 1) * 0.25 * (width - towerWidth * 3) + steps * towerWidth - (dstBtwTower - dec * (n - diskToMove) - towerWidth) / 2
   }
   else if (dst == "A") {
-    // console.log((dstBtwTower -dec*(n-diskToMove)-towerWidth))
     transX = 0.25 * (width - towerWidth * 3) + towerWidth / 2 - (dstBtwTower - dec * (n - diskToMove)) / 2
   }
   else if (dst == "B") {
@@ -43,16 +35,15 @@ function move(src, dst) {
     transX = 0.75 * (width - towerWidth * 3) + towerWidth * 2 + towerWidth / 2 - (dstBtwTower - dec * (n - diskToMove)) / 2
     console.log(transX)
   }
-  // console.log(transX)   
   animation.add({
     targets: `#disk${diskToMove}`,
-    translateY: [{ value: titleHeight - 40, duration: timeDelay }],
+    translateY: [{ value: titleHeight - 52 }],
   }).add({
     targets: `#disk${diskToMove}`,
-    translateX: [{ value: transX, duration: timeDelay }],
+    translateX: [{ value: transX }],
   }).add({
     targets: `#disk${diskToMove}`,
-    translateY: [{ value: titleHeight + 0.5 * height - (lenDst) * diskHeight, duration: timeDelay }],
+    translateY: [{ value: titleHeight + 0.5 * height - (lenDst) * diskHeight }],
   })
 }
 function intialize(n) {
@@ -68,19 +59,27 @@ function intialize(n) {
     })
   }
   towerOfHanoi(n, "A", "C", "B");
+  setTimeout(animation.play, 500)
   animation.add({
-    complete:()=>{document.getElementById("range").disabled = false;}
+    complete: () => { document.getElementById("range").disabled = false; 
+                      document.getElementById("inp_btn").innerHTML="Start";
+                      document.getElementById("inp_btn").onclick = createDisks;
+                    }
   })
-  animation.play();
-  // document.getElementById("range").disabled=false;
 }
 function reset() {
   doc = document.getElementsByClassName("disk__container")[0];
   doc.innerHTML = "";
   towers = { "A": [], "B": [], "C": [] }
-  timeDelay = (100-document.getElementById("range").value)*10;
-  document.getElementById("range").disabled=false;
+  timeDelay = (100 - document.getElementById("range").value) * 10;
+  document.getElementById("range").disabled = false;
   console.log(timeDelay);
+  document.getElementById("inp_btn").innerHTML="Start";
+  document.getElementById("inp_btn").onclick = createDisks;
+  bodyT = document.getElementsByTagName('body')[0];
+  width = bodyT.clientWidth;
+  height = bodyT.clientHeight;
+  dstBtwTower = (width * 0.2)
   animation = anime.timeline({
     duration: timeDelay,
     easing: 'easeInOutSine',
@@ -88,13 +87,16 @@ function reset() {
   });
 }
 function createDisks() {
+  reset();
+  document.getElementById("inp_btn").innerHTML="Pause";
+  document.getElementById("inp_btn").onclick = animePause;
   n = document.getElementById("hanoi_n").value;
-  if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) { 
-    alert ("Enter number between 2 and 8")
-    return; }
+  if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) {
+    alert(`Enter number between 2 and ${Math.floor(Math.min((0.5 * height) / diskHeight, 8))}`)
+    return;
+  }
   dec = (dstBtwTower - towerWidth) / n
   doc = document.getElementsByClassName("disk__container")[0];
-  reset();
   document.getElementById("range").disabled = true;
   for (let i = 0; i < n; ++i) {
     towers.A.push(n - i)
@@ -103,8 +105,15 @@ function createDisks() {
   console.log(towers, Math.abs("C".codePointAt(0) - "A".codePointAt(0)));
   intialize(n)
 }
-function start() {
-  createDisks();
+function animePause(){
+  animation.pause()
+  document.getElementById("inp_btn").innerHTML="Play";
+  document.getElementById("inp_btn").onclick = animePlay;
 }
-document.getElementById("inp_btn").onclick = start;
+function animePlay(){
+  animation.play()
+  document.getElementById("inp_btn").innerHTML="Pause";
+  document.getElementById("inp_btn").onclick = animePause;
+}
+document.getElementById("inp_btn").onclick = createDisks;
 document.getElementById("rst_btn").onclick = reset;
