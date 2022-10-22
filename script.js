@@ -61,10 +61,12 @@ function intialize(n) {
   towerOfHanoi(n, "A", "C", "B");
   setTimeout(animation.play, 500)
   animation.add({
+
     complete: () => { document.getElementById("range").disabled = false; 
                       document.getElementById("inp_btn").innerHTML="Start";
                       document.getElementById("inp_btn").onclick = createDisks;
                     }
+
   })
 }
 function reset() {
@@ -92,7 +94,9 @@ function createDisks() {
   document.getElementById("inp_btn").onclick = animePause;
   n = document.getElementById("hanoi_n").value;
   if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) {
+
     alert(`Enter number between 2 and ${Math.floor(Math.min((0.5 * height) / diskHeight, 8))}`)
+
     return;
   }
   dec = (dstBtwTower - towerWidth) / n
