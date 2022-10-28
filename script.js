@@ -61,12 +61,11 @@ function intialize(n) {
   towerOfHanoi(n, "A", "C", "B");
   setTimeout(animation.play, 500)
   animation.add({
-
-    complete: () => { document.getElementById("range").disabled = false; 
-                      document.getElementById("inp_btn").innerHTML="Start";
-                      document.getElementById("inp_btn").onclick = createDisks;
-                    }
-
+    complete: () => {
+      document.getElementById("range").disabled = false;
+      document.getElementById("inp_btn").innerHTML = "Start";
+      document.getElementById("inp_btn").onclick = createDisks;
+    }
   })
 }
 function reset() {
@@ -76,7 +75,7 @@ function reset() {
   timeDelay = (100 - document.getElementById("range").value) * 10;
   document.getElementById("range").disabled = false;
   console.log(timeDelay);
-  document.getElementById("inp_btn").innerHTML="Start";
+  document.getElementById("inp_btn").innerHTML = "Start";
   document.getElementById("inp_btn").onclick = createDisks;
   bodyT = document.getElementsByTagName('body')[0];
   width = bodyT.clientWidth;
@@ -90,15 +89,13 @@ function reset() {
 }
 function createDisks() {
   reset();
-  document.getElementById("inp_btn").innerHTML="Pause";
-  document.getElementById("inp_btn").onclick = animePause;
   n = document.getElementById("hanoi_n").value;
   if (n < 2 || n > Math.min((0.5 * height) / diskHeight, 8)) {
-
     alert(`Enter number between 2 and ${Math.floor(Math.min((0.5 * height) / diskHeight, 8))}`)
-
     return;
   }
+  document.getElementById("inp_btn").innerHTML = "Pause";
+  document.getElementById("inp_btn").onclick = animePause;
   dec = (dstBtwTower - towerWidth) / n
   doc = document.getElementsByClassName("disk__container")[0];
   document.getElementById("range").disabled = true;
@@ -109,14 +106,14 @@ function createDisks() {
   console.log(towers, Math.abs("C".codePointAt(0) - "A".codePointAt(0)));
   intialize(n)
 }
-function animePause(){
+function animePause() {
   animation.pause()
-  document.getElementById("inp_btn").innerHTML="Play";
+  document.getElementById("inp_btn").innerHTML = "Play";
   document.getElementById("inp_btn").onclick = animePlay;
 }
-function animePlay(){
+function animePlay() {
   animation.play()
-  document.getElementById("inp_btn").innerHTML="Pause";
+  document.getElementById("inp_btn").innerHTML = "Pause";
   document.getElementById("inp_btn").onclick = animePause;
 }
 document.getElementById("inp_btn").onclick = createDisks;
