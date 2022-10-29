@@ -1,5 +1,5 @@
 # Tower_of_Hanoi
-Tower of hanoi
+Tower of hanoi visualization webpage made using animejs 
 
 # Hosted Site
 [Tower Of Hanoi](https://pypranav.github.io/Tower_of_Hanoi/)
